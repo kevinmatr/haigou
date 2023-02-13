@@ -283,6 +283,19 @@ const router = createRouter({
   routes: routes,
 });
 
+// 重置路由
+routes.map((item, i) => {
+  item.id = i + 1;
+  item.til = item.meta.title;
+  if (item.children && item.children.length) {
+    item.children.forEach((ite, j) => {
+      ite.id = i + 1 + "_" + j + 1;
+      ite.til = ite.meta.til;
+      ite.parentID = item.id;
+    });
+  }
+});
+
 router.beforeEach((to, from, next) => {
   let token = store.state.user.user.token;
 

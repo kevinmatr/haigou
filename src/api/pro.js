@@ -13,4 +13,4 @@ export const filterprolist = (data = {}) =>
 // 获取列表
 // export const getiskill = () => request.get("/pro/getCategory");
 // 更新访问
-// export const setflag = (data = {}) => request.post("/banner/updateFlag", data);
+export const setflag = (data = {}) => request.post("/banner/updateFlag", data);

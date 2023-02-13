@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="prolist" border style="width: 100%">
+    <el-table :data="prolist" border style="width: 100%" class="tb">
       <el-table-column align="center" label="序号" width="180">
         <template #default="scoped">
           <span>{{
@@ -45,17 +45,23 @@
       </el-table-column>
       <el-table-column align="center" label="是否售卖">
         <template #default="scoped">
-          <el-switch v-model="scoped.row.issale" @change=""></el-switch>
+          <el-switch
+            v-model="is.saleis[scoped.row.issale]"
+            @change=""
+          ></el-switch>
         </template>
       </el-table-column>
       <el-table-column align="center" label="是否秒杀">
         <template #default="scoped">
-          <el-switch v-model="scoped.row.isseckill" @change=""></el-switch>
+          <el-switch v-model="is.seckillis[scoped.row.isseckill]"></el-switch>
         </template>
       </el-table-column>
       <el-table-column align="center" label="是否推荐">
         <template #default="scoped">
-          <el-switch v-model="scoped.row.isrecommend" @change=""></el-switch>
+          <el-switch
+            v-model="is.recommendis[scoped.row.isrecommend]"
+            @change=""
+          ></el-switch>
         </template>
       </el-table-column>
       <el-table-column align="center" label="删除">
@@ -79,9 +85,25 @@
 <script setup>
 import { filter } from "lodash";
 import { ref, onMounted, watch } from "vue";
-import { getprolist } from "../../api/pro";
+import { getprolist, setflag } from "../../api/pro";
 
 const prolist = ref([]);
+
+const is = ref({
+  saleis: {
+    1: true,
+    0: false,
+  },
+  seckillis: {
+    1: true,
+    0: false,
+  },
+  recommendis: {
+    1: true,
+    0: false,
+  },
+});
+
 const pageObj = ref({
   count: 1,
   limitNum: 10,
@@ -99,6 +121,12 @@ const getpros = async () => {
 //   getpros();
 // });
 
+const changeflag = async (row) => {
+  let { proid, type, flag } = row;
+  let res = await setflag({ proid, type, flag });
+  console.log(res, "hhh");
+};
+
 watch(
   pageObj,
   () => {
@@ -111,6 +139,9 @@ watch(
 .el-table img {
   width: 100px;
   height: 100px;
+}
+.el-table {
+  margin-bottom: 10px;
 }
 .red ::v-deep {
   overflow: hidden;

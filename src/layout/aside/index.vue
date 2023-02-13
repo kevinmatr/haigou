@@ -1,7 +1,12 @@
 <template>
   <div class="wrapper">
     <div class="avatars">
-      <el-avatar shape="square" :size="60" fit="cover" src="url" />
+      <el-avatar
+        shape="circle"
+        :size="60"
+        fit="cover"
+        src="../../assets/b5.jpg"
+      />
       <h2>嗨购后台管理系统</h2>
     </div>
     <el-menu
